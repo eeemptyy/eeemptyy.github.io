@@ -1,0 +1,169 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 75% georgia, sans-serif;
+    line-height: 1.88889;
+    background: #fdfdfd;
+    background: #fdfdfd url("../img/bg01.jpg") no-repeat bottom right;
+    /*background-size: cover;*/
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin-top: 0;
+    text-align: justify;
+    color: saddlebrown;
+    font-family: 'Farsan', cursive;
+    font-size: 1.6em;
+}
+
+h3 {
+    font-family: 'Courgette', cursive;
+    font-size: 1.6em;
+    /*font: italic normal 1.4em georgia, sans-serif;*/
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    color: firebrick;
+}
+
+a:link {
+    font-weight: bold;
+    text-decoration: none;
+    color: crimson;
+}
+
+a:visited {
+    font-weight: bold;
+    text-decoration: none;
+    color: firebrick;
+}
+
+a:hover,
+a:focus,
+a:active {
+    text-decoration: underline;
+    color: tomato;
+}
+
+abbr {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+}
+
+
+/* specific divs */
+
+.page-wrapper {
+    /*background: url(bg01.jpg) no-repeat top left;*/
+    left: 35%;
+    width: 30%;
+    right: 35%;
+    top: 20%;
+    margin: 10px;
+    position: relative;
+    min-width: 300px;
+    border-style: groove;
+    border-radius: 1em;
+    position: relative;
+    background-color: rgba(242, 242, 242, 0.5);
+    /*min-width: 200px;*/
+}
+
+.intro {
+    min-width: 250px;
+    width: 100%;
+}
+
+header h1 {
+    text-align: center;
+    display: block;
+    color: firebrick;
+    font-family: 'Fontdiner Swanky', cursive;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+header h2 {
+    text-align: center;
+    display: block;
+    color: firebrick;
+    font-family: 'Fontdiner Swanky', cursive;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+header h3 {
+    text-align: center;
+    display: block;
+    color: firebrick;
+    font-family: 'Fontdiner Swanky', cursive;
+    font-size: 1.1em;
+}
+
+label {
+    display: inline-block;
+    width: 70px;
+    font-family: 'Farsan', cursive;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+.form-input2 {
+    left: 15%;
+    width: 50%;
+    right: 15%;
+    margin: 0;
+    position: relative;
+    min-width: 250px;
+}
+
+.form-margin {
+    margin: 10px;
+}
+
+.btn {
+    margin: 10px;
+}
