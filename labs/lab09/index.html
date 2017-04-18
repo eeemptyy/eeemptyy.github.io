@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lucky Reward Draw!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bulma.css">
+</head>
+
+<body>
+    <section class="hero is-fullheight is-dark is-bold">
+        <div class="hero-body" id="rewardApp">
+            <div class="container">
+                <div class="columns is-vcentered">
+
+                    <div class="column is-4 is-offset-4" v-if="mode=='register'">
+                        <h1 class="title" align="center">
+                            Register to get a Reward!
+                        </h1>
+                        <div class="box">
+                            <div class="notification is-danger" v-if="formError">
+                                Please fill in the Form.
+                            </div>
+                            <label class="label">Name</label>
+                            <p class="control">
+                                <input v-model="formUser.firstname" class="input" type="text" placeholder="John Smith" trim>
+                            </p>
+                            <label class="label">Phone</label>
+                            <p class="control">
+                                <input v-model="formUser.tel" class="input" type="text" placeholder="+66XX-XXX-XXXX" trim>
+                            </p>
+                            <hr>
+                            <p class="control">
+                                <div align="center">
+                                    <button type="button" class="button is-primary " v-on:click="addUser()">Register</button>
+                                    <button type="button" class="button is-default " :disabled="(allUser.length < 5)" v-on:click="mode='draw', setUser()">StartDrawer</button>
+                                </div>
+                            </p>
+                        </div>
+                        <div class=" box ">
+                            <div v-if="allUser.length> 0" class="box">
+                                <h3 class="title" align="center" style="color:darkgrey;font-size:1.4em;">
+                                    <b>Total User {{ allUser.length }}</b>
+                                </h3>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Firstname</th>
+                                            <th>Tel</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(user, index) in allUser">
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ user.firstname }}</td>
+                                            <td>{{ user.tel }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-6 is-offset-3" v-if="mode=='draw'">
+                        <h1 class="title" align="center" v-if="!isToggle">
+                            <b>{{formGetReward.firstname}}'s Turn</b>
+                        </h1>
+                        <h2 class="title" align="center" v-if="!isToggle">
+                            <small>Phone:{{formGetReward.tel}}</small>
+                        </h2>
+                        <div class="column is-6 is-offset-3" align="center" v-if="isToggle">
+                            <br/>
+                            <button type="button" class="button is-info is-large" v-on:click="mode='result'">ViewResult</button>
+                        </div>
+                        <div class="columns is-multiline ">
+                            <div class="column is-4" v-for="(reward, index) in rewards">
+                                <br/>
+                                <!--<a>-->
+                                <div v-on:click="clickImg($event)">
+                                    <img src='img/signPic.png' style="border-style:solid; border-color: white; border-width: 1px; background-color:white;">
+                                    <p hidden>{{rewards[index].rewardID}}</p>
+                                </div>
+                                <!--</a>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-8 is-offset-2" v-if="mode=='result'">
+                        <div class=" box ">
+                            <div v-if="getRewards.length > 0" class="box">
+                                <h3 class="title" align="center" style="color:darkgrey;font-size:1.4em;">
+                                    <b>Reward Summary</b>
+                                </h3>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Firstname</th>
+                                            <th>Tel</th>
+                                            <th>Reward</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(reward, index) in getRewards">
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ reward.firstname }}</td>
+                                            <td>{{ reward.tel }}</td>
+                                            <td><a :href="reward.reward" target="blank">{{ reward.reward.split("/")[1].split(".")[0] }}</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="has-text-centered ">
+                    <a href="index.html ">Home</a> |
+                    <a href=".">Reload</a>
+                </p>
+            </div>
+
+        </div>
+    </section>
+</body>
+
+<script src="js/vue-2.2.6.js" charset="utf-8"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/emptyVue.js"></script>
+
+</html>
