@@ -2,119 +2,10 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Bad+Script|Covered+By+Your+Grace|Handlee" rel="stylesheet">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        * {
-            box-sizing: border-box
-        }
-        
-        body {
-            font-family: Verdana, sans-serif;
-            background-image: url("bg.jpg");
-        }
-        
-        .mySlides {
-            display: none
-        }
-        /* Slideshow container */
-        
-        .slideshow-container {
-            max-width: 80%;
-            position: relative;
-            margin: auto;
-        }
-        /* Caption text */
-        
-        .text {
-            color: #f2f2f2;
-            font-size: 15px;
-            padding: 8px 12px;
-            position: absolute;
-            bottom: 8px;
-            width: 100%;
-            text-align: center;
-        }
-        /* Number text (1/3 etc) */
-        
-        .numbertext {
-            color: #f2f2f2;
-            font-size: 12px;
-            padding: 8px 12px;
-            position: absolute;
-            top: 0;
-        }
-        /* The dots/bullets/indicators */
-        
-        .dot {
-            height: 13px;
-            width: 13px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-        
-        .active {
-            background-color: #717171;
-        }
-        /* Fading animation */
-        
-        .fade {
-            -webkit-animation-name: fade;
-            -webkit-animation-duration: 2s;
-            animation-name: fade;
-            animation-duration: 2s;
-        }
-        
-        @-webkit-keyframes fade {
-            from {
-                opacity: .4
-            }
-            to {
-                opacity: 1
-            }
-        }
-        
-        @keyframes fade {
-            from {
-                opacity: .4
-            }
-            to {
-                opacity: 1
-            }
-        }
-        /* On smaller screens, decrease text size */
-        
-        @media only screen and (max-width: 300px) {
-            .text {
-                font-size: 11px
-            }
-        }
-        
-        .h2-text {
-            font-family: 'Handlee', cursive;
-            color: white;
-            /*font-family: 'Bad Script', cursive;*/
-            /*font-family: 'Covered By Your Grace', cursive;*/
-        }
-        
-        .nd-text {
-            font-family: 'Handlee', cursive;
-            color: white;
-            /*font-family: 'Bad Script', cursive;*/
-            /*font-family: 'Covered By Your Grace', cursive;*/
-            padding-right: 13%;
-        }
-        
-        .text {
-            font-family: 'Handlee', cursive;
-            font-size: 3em;
-            text-shadow: 2px 2px 5px darkgrey;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Bad+Script|Covered+By+Your+Grace|Handlee" rel="stylesheet">
+    <link href="../css/hbd-o/happy_birthday_my_super_oreo.css" rel="stylesheet">
+    <title>Happy Birthday My Super OREO</title>
 </head>
 
 <body>
@@ -163,7 +54,6 @@
 
     </div>
     <br>
-
     <div style="text-align:center">
         <span class="dot"></span>
         <span class="dot"></span>
@@ -173,43 +63,8 @@
         <!--<span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>-->
-
     </div>
-
-    <script>
-        var slideIndex = 0;
-        var tt = 3000;
-        var count = 0;
-        showSlides();
-
-        function showSlides() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            // tt = 2000;
-            setTimeout(showSlides, tt);
-            tt += 500;
-            count += 1;
-            if (count == 6) {
-                tt = 3500;
-                count = 0;
-            }
-            console.log(tt);
-        }
-    </script>
-
 </body>
 
 </html>
+<script src="../js/hbd-o/happy_birthday_my_super_oreo.js"></script>
