@@ -6,33 +6,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Jompol Sermsook">
     <title>Form-test</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Theme CSS -->
-    <link href="css/grayscale.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
+
 
 </head>
 
 <body>
+    <div class="container-fluid">
+        <section class="container">
+            <div class="container-page">
+                <div class="col-md-6">
+                    <h3 class="dark-grey">Registration</h3>
+
+                    <div class="form-group col-lg-12">
+                        <label>Username</label>
+                        <input type="" name="" class="form-control" id="" value="">
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Password</label>
+                        <input type="password" name="" class="form-control" id="" value="">
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Repeat Password</label>
+                        <input type="password" name="" class="form-control" id="" value="">
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Email Address</label>
+                        <input type="" name="" class="form-control" id="" value="">
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Repeat Email Address</label>
+                        <input type="" name="" class="form-control" id="" value="">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="checkbox" class="checkbox" />Sigh up for our newsletter
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="checkbox" class="checkbox" />Send notifications to this email
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <h3 class="dark-grey">Terms and Conditions</h3>
+                    <p>
+                        By clicking on "Register" you agree to The Company's' Terms and Conditions
+                    </p>
+                    <p>
+                        While rare, prices are subject to change based on exchange rate fluctuations - should such a fluctuation happen, we may request an additional payment. You have the option to request a full refund or to pay the new price. (Paragraph 13.5.8)
+                    </p>
+                    <p>
+                        Should there be an error in the description or pricing of a product, we will provide you with a full refund (Paragraph 13.5.6)
+                    </p>
+                    <p>
+                        Acceptance of an order by us is dependent on our suppliers ability to provide the product. (Paragraph 13.5.6)
+                    </p>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer>
-        <div class="text-center">
+        <div align="right">
             <p>Copyright &copy; eeemptyy.github.io 2016</p>
         </div>
     </footer>
 
 </body>
 
+<script src="../../js/jquery-3.2.0.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDPTZvQZYk0ihgQMhLkWSofrm7818ewNbI",
+        authDomain: "eeemptyy-b45ad.firebaseapp.com",
+        databaseURL: "https://eeemptyy-b45ad.firebaseio.com",
+        projectId: "eeemptyy-b45ad",
+        storageBucket: "eeemptyy-b45ad.appspot.com",
+        messagingSenderId: "180610118028"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script src="../../js/o/form.js"></script>
+
 </html>
-
-<!-- jQuery -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<!-- Custom JavaScript -->
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
