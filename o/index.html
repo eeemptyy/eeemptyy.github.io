@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Firebase - Form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="js/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+
+    <link href="css/empty.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" align="center">
+                <h2>แบบฟอร์มสั่งของ อิอิ</h2>
+                <!-- <img src="img/cara.jpg" class="img-responsive" alt="Cinque Terre"> -->
+            </div>
+            <form class="js-form">
+                <div class="col-xs-12 form-group">
+                    <label for="email">อีเมล์</label>
+                    <input placeholder="abcdef.x@hosting.com" type="text" id="email" class="form-control" />
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="firstname">ชื่อจริง</label>
+                    <input placeholder="John" type="text" id="firstname" class="form-control" />
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="lastname">นามสกุล</label>
+                    <input placeholder="Doe" type="text" id="lastname" class="form-control" />
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label for="address">ที่อยู่</label>
+                    <input placeholder="1234/12 หมู่ 0" type="text" id="address" class="form-control" />
+                </div>
+                <div class="col-xs-4 form-group">
+                    <label for="district">แขวง/ตำบล</label>
+                    <input placeholder="ลาดยาว" type="text" id="district" class="form-control" />
+                </div>
+                <div class="col-xs-4 form-group">
+                    <label for="amphoe">เขต/อำเภอ</label>
+                    <input placeholder="จตุจักร" type="text" id="amphoe" class="form-control" />
+                </div>
+                <div class="col-xs-4 form-group">
+                    <label for="province">จังหวัด</label>
+                    <input placeholder="กรุงเทพฯ" type="text" id="province" class="form-control" />
+                </div>
+                <div class="col-xs-4 form-group">
+                    <label for="zipcode">รหัสไปรษณีย์</label>
+                    <input placeholder="10900" type="text" id="zipcode" class="form-control" />
+                </div>
+                <div class="col-xs-8 form-group">
+                    <label for="phone">โทรศัพท์มือถือ</label>
+                    <input placeholder="098-765-4321" type="text" id="phone" class="form-control" />
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label for="message">เพิ่มเติม</label>
+                    <textarea id="message" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <button id="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            <!-- </div> -->
+        </div>
+    </div>
+    <!-- JAVASCRIPT FILES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+    <script type="text/javascript" src="js/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="js/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+    <script src="js/empty.js"></script>
+</body>
+
+</html>

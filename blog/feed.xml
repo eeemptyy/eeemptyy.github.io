@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link></link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://eeemptyy.github.io.git.dev/blog/</link>
+    <atom:link href="http://eeemptyy.github.io.git.dev/blog//feed.xml" rel="self" type="application/rss+xml" />
     <description></description>
     <language>en-us</language>
-    <pubDate>Tue, 01 Aug 2017 01:06:17 +0700</pubDate>
-    <lastBuildDate>Tue, 01 Aug 2017 01:06:17 +0700</lastBuildDate>
+    <pubDate>Tue, 01 Aug 2017 01:35:37 +0700</pubDate>
+    <lastBuildDate>Tue, 01 Aug 2017 01:35:37 +0700</lastBuildDate>
 
     
       <item>
         <title>Video example</title>
-        <link>/video-example</link>
+        <link>http://eeemptyy.github.io.git.dev/blog//video-example</link>
         <pubDate>Sun, 23 Apr 2017 00:00:00 +0700</pubDate>
         <author></author>
         <description>&lt;iframe src=&quot;https://player.vimeo.com/video/214092083?badge=0&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
@@ -22,7 +22,7 @@
     
       <item>
         <title>Demo post</title>
-        <link>/demo-post</link>
+        <link>http://eeemptyy.github.io.git.dev/blog//demo-post</link>
         <pubDate>Fri, 07 Mar 2014 00:00:00 +0700</pubDate>
         <author></author>
         <description>&lt;p&gt;Praesent tincidunt vestibulum sem nec eleifend. Pellentesque adipiscing mollis adipiscing. Sed ipsum sem, eleifend eget dapibus in, tincidunt ut dolor. Curabitur gravida urna leo, eget auctor turpis feugiat non. Vivamus pharetra, lorem id ullamcorper rutrum, eros erat condimentum erat, ac dignissim lorem nisi nec nunc. Praesent tellus mi, volutpat quis nisl et, consectetur blandit nibh.&lt;/p&gt;
