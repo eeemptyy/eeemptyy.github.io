@@ -36,7 +36,7 @@ $(function() {
             .then(user => {
                 state.email = email;
                 state.password = password;
-                $('#js-login-data').addClass('hidden');
+                // $('#js-login-data').addClass('hidden');
                 firebase.database().ref('messages').push({
                     message,
                     email
