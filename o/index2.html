@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Order - Form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="js/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+
+    <!-- <link href="css/empty1.css"> -->
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400);
+        input::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder {
+            color: #aca49c;
+            font-size: 0.875em;
+        }
+        
+        input:focus::-webkit-input-placeholder,
+        textarea:focus::-webkit-input-placeholder {
+            color: #bbb5af;
+        }
+        
+        input::-moz-placeholder,
+        textarea::-moz-placeholder {
+            color: #aca49c;
+            font-size: 0.875em;
+        }
+        
+        input:focus::-moz-placeholder,
+        textarea:focus::-moz-placeholder {
+            color: #bbb5af;
+        }
+        
+        input::placeholder,
+        textarea::placeholder {
+            color: #aca49c;
+            font-size: 0.875em;
+        }
+        
+        input:focus::placeholder,
+        textarea::focus:placeholder {
+            color: #bbb5af;
+        }
+        
+        input::-ms-placeholder,
+        textarea::-ms-placeholder {
+            color: #aca49c;
+            font-size: 0.875em;
+        }
+        
+        input:focus::-ms-placeholder,
+        textarea:focus::-ms-placeholder {
+            color: #bbb5af;
+        }
+        /* on hover placeholder */
+        
+        input:hover::-webkit-input-placeholder,
+        textarea:hover::-webkit-input-placeholder {
+            color: #e2dedb;
+            font-size: 0.875em;
+        }
+        
+        input:hover:focus::-webkit-input-placeholder,
+        textarea:hover:focus::-webkit-input-placeholder {
+            color: #cbc6c1;
+        }
+        
+        input:hover::-moz-placeholder,
+        textarea:hover::-moz-placeholder {
+            color: #e2dedb;
+            font-size: 0.875em;
+        }
+        
+        input:hover:focus::-moz-placeholder,
+        textarea:hover:focus::-moz-placeholder {
+            color: #cbc6c1;
+        }
+        
+        input:hover::placeholder,
+        textarea:hover::placeholder {
+            color: #e2dedb;
+            font-size: 0.875em;
+        }
+        
+        input:hover:focus::placeholder,
+        textarea:hover:focus::placeholder {
+            color: #cbc6c1;
+        }
+        
+        input:hover::placeholder,
+        textarea:hover::placeholder {
+            color: #e2dedb;
+            font-size: 0.875em;
+        }
+        
+        input:hover:focus::-ms-placeholder,
+        textarea:hover::focus:-ms-placeholder {
+            color: #cbc6c1;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: #e2dedb;
+            color: #b3aca7;
+        }
+        
+        header {
+            position: relative;
+            margin: 100px 0 25px 0;
+            font-size: 2.3em;
+            text-align: center;
+            letter-spacing: 7px;
+        }
+        
+        #form {
+            position: relative;
+            width: 500px;
+            margin: 50px auto 100px auto;
+        }
+        
+        input {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.875em;
+            width: 470px;
+            height: 50px;
+            padding: 0px 15px 0px 15px;
+            background: transparent;
+            outline: none;
+            color: #726659;
+            border: solid 1px #b3aca7;
+            border-bottom: none;
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+        }
+        
+        input:hover {
+            background: #b3aca7;
+            color: #e2dedb;
+        }
+        
+        textarea {
+            width: 470px;
+            max-width: 470px;
+            height: 110px;
+            max-height: 110px;
+            padding: 15px;
+            background: transparent;
+            outline: none;
+            color: #726659;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.875em;
+            border: solid 1px #b3aca7;
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+        }
+        
+        textarea:hover {
+            background: #b3aca7;
+            color: #e2dedb;
+        }
+        
+        #submit {
+            width: 502px;
+            padding: 0;
+            margin: -5px 0px 0px 0px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.875em;
+            color: #b3aca7;
+            outline: none;
+            cursor: pointer;
+            border: solid 1px #b3aca7;
+            border-top: none;
+        }
+        
+        #submit:hover {
+            color: #e2dedb;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>EMPTY FORM</h1>
+
+    <form id="form" class="topBefore">
+
+        <input id="name" type="text" placeholder="NAME">
+        <input id="email" type="text" placeholder="E-MAIL">
+        <textarea id="message" type="text" placeholder="MESSAGE"></textarea>
+        <input id="submit" type="submit" value="GO!">
+
+    </form>
+
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+    <script type="text/javascript" src="js/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="js/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+    <script src="js/empty.js"></script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-104396791-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+</body>
