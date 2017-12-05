@@ -1,0 +1,1 @@
+wget http://yoursite.com/tasks.php
