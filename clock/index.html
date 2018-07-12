@@ -1,50 +1,176 @@
-<head>
-  <link href="css/clock.css" rel="stylesheet">
-</head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EMPTY's Multi Stopwatch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <link rel="stylesheet" href="css/custom.css">
+  </head>
+  <body>
 
-<div id="template" style="display:none;">
-  <span>Clock no</span>
-  <div id="clock-no" class="clock" data-id="no">
-    <div class="values">00:00:00</div>
-    <div>
-      <button data-id="no" data-key="kkey-start" class="start button startButton">Start</button>
-      <button data-id="no" data-key="kkey-pause" class="pause button pauseButton" >Pause</button>
-      <button data-id="no" data-key="kkey-stop" class="stop button stopButton">Stop</button>
-      <button data-id="no" data-key="kkey-reset" class="reset button resetButton">Reset</button>
-      <span>last action show here</span>
+    <nav class="navbar is-fixed-bottom is-black">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://www.eeemptyy.me/clock">
+          EMPTY's Multi Stopwatch
+        </a>
+        <small class="is-small">by JOMPOL, Bulma and EasyTimer</small>
+        <!-- <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div> -->
+      </div>
+
+      <!-- <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="https://bulma.io/">
+            Home
+          </a>
+          <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+            <a class="navbar-link" href="/documentation/overview/start/">
+              Docs
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="/documentation/overview/start/">
+                Overview
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="http://localhost:4000" target="_blank" href="https://twitter.com/intent/tweet?text=aaa">
+                  <span class="icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>
+                    Tweet
+                  </span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </nav>
+
+    <strong>Add Clock Form</strong> <small>(all lowercase character)</small>
+
+    <div class="add-clock-form field is-grouped">
+      <div class="field">
+        <label class="label" for="key-map-start">K.Start</label>
+        <div class="control">
+          <input class="input" id="key-map-start" type="text" placeholder="e.g Alex Smith">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="key-map-pause">K.Pause</label>
+        <div class="control">
+          <input class="input" id="key-map-pause" type="text" placeholder="e.g Alex Smith">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="key-map-stop">K.Stop</label>
+        <div class="control">
+          <input class="input" id="key-map-stop" type="text" placeholder="e.g Alex Smith">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="key-map-reset">K.Reset</label>
+        <div class="control">
+          <input class="input" id="key-map-reset" type="text" placeholder="e.g Alex Smith">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">&nbsp;</label>
+        <div class="control">
+          <button id="add-clock" class="button is-primary">Add Clock</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="add-clock-form">
-  <span><label for="key-map-start">Key start</label></span>
-  <input type="text" id="key-map-start" placeholder="e.g. q" style="width: 80px;" >
-  <br/>
-  <span><label for="key-map-pause">Key pause</label></span>
-  <input type="text" id="key-map-pause" placeholder="e.g. w" style="width: 80px;" >
-  <br/>
-  <span><label for="key-map-stop">Key stop</label></span>
-  <input type="text" id="key-map-stop" placeholder="e.g. e" style="width: 80px;" >
-  <br/>
-  <span><label for="key-map-reset">Key reset</label></span>
-  <input type="text" id="key-map-reset" placeholder="e.g. r" style="width: 80px;" >
-  <small>(all lowercase)</small>
-  <button id="add-clock">Add Clock</button>
-</div>
-<div>
-  <button id="start-all-clock">Start All</button>
-  <button id="stop-all-clock">Stop All</button>
-</div>
-<br/>
-<br/>
-<div id="clock-container">
+    <div class="level">
+      <div class="level-item has-text-centered">
+        <button id="start-all-clock" class="button is-fullwidth is-primary is-outlined">Start All</button>
+      </div>
+      <div class="level-item has-text-centered">
+        <button id="stop-all-clock" class="button is-fullwidth is-danger is-outlined">Stop All</button>
+      </div>
+    </div>
 
-</div>
+    <hr>
 
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-<script src="easytimer/dist/easytimer.min.js"></script>
+    <div id="clock-container">
 
-<script src="js/clock.js"></script>
+    </div>
+
+    <!-- -->
+    <div id="clock-template" style="display: none;">
+      <div id="clock-no" class="clock" data-id="no">
+
+        <a class="button is-white is-fullwidth">
+          <span>Clock no.</span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="status">( status )</span>
+        </a>
+        <div class="level values">
+          <div class="level-item has-text-centered">
+            <div class="hr">
+              <p class="heading">HOURS</p>
+              <p class="title">00</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div class="min">
+              <p class="heading">MINUTES</p>
+              <p class="title">00</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div class="sec">
+              <p class="heading">SECONDS</p>
+              <p class="title">00</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div class="mili">
+              <p class="heading">M.SECONDS</p>
+              <p class="title">00</p>
+            </div>
+          </div>
+        </div>
+        <div class="level">
+          <div class="level-item has-text-centered">
+            <button data-id="no" data-key="kkey-start" class="startButton button is-fullwidth is-primary is-rounded">Start</button>
+          </div>
+          <div class="level-item has-text-centered">
+            <button data-id="no" data-key="kkey-pause" class="pauseButton button is-fullwidth is-info is-rounded">Pause</button>
+          </div>
+          <div class="level-item has-text-centered">
+            <button data-id="no" data-key="kkey-stop" class="stopButton button is-fullwidth is-danger is-rounded">Stop</button>
+          </div>
+          <div class="level-item has-text-centered">
+            <button data-id="no" data-key="kkey-reset" class="resetButton button is-fullwidth is-warning is-rounded">Reset</button>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+    </div>
+
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script src="easytimer/dist/easytimer.min.js"></script>
+
+    <script src="js/clock.js"></script>
+
+  </body>
+</html>

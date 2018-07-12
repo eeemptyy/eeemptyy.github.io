@@ -1,5 +1,5 @@
 var app = {
-  template: $('#template').html(),
+  template: $('#clock-template').html(),
   container:$('#clock-container'),
   count: 0,
   Timers: [],
@@ -15,8 +15,8 @@ var app = {
     $('#start-all-clock').click(function() {
       for(let tt=0; tt<that.Timers.length; tt++){
         let timer = that.Timers[tt];
-        timer.start();
-        $('#clock-container #clock-'+tt+' span').html('Started by "Start All"');
+        timer.start({precision: 'secondTenths'});
+        $('#clock-container #clock-'+tt+' span.status').html('Started by "Start All"');
       }
     });
 
@@ -24,7 +24,7 @@ var app = {
       for(let tt=0; tt<that.Timers.length; tt++){
         let timer = that.Timers[tt];
         timer.stop();
-        $('#clock-container #clock-'+tt+' span').html('Stopped by "Stop All"');
+        $('#clock-container #clock-'+tt+' span.status').html('Stopped by "Stop All"');
       }
     });
 
@@ -74,10 +74,7 @@ var app = {
         'resetButton': keyReset
       };
 
-
       that.container.append(loadTemplate);
-      that.container.append('<br/>');
-
       that.keyMap[that.count] = obb;
 
       that.createTimer();
@@ -91,33 +88,44 @@ var app = {
 
 
     $('#clock-container #clock-'+index+' .startButton').click(function (e) {
-        $('#clock-container #clock-'+index+' span').html('started');
-        console.log(index);
-        console.log('-----');
-        console.log(e.keyCode);
-        console.log(String.fromCharCode(e.keyCode));
+        $('#clock-container #clock-'+index+' span.status').html('started');
+        // console.log(index);
+        // console.log('-----');
+        // console.log(e.keyCode);
+        // console.log(String.fromCharCode(e.keyCode));
         timer.start({precision: 'secondTenths'});
     });
     $('#clock-container #clock-'+index+' .pauseButton').click(function () {
-        $('#clock-container #clock-'+index+' span').html('paused');
+        $('#clock-container #clock-'+index+' span.status').html('paused');
         timer.pause();
     });
     $('#clock-container #clock-'+index+' .stopButton').click(function () {
-        $('#clock-container #clock-'+index+' span').html('stopped');
+        $('#clock-container #clock-'+index+' span.status').html('stopped');
         timer.stop();
     });
     $('#clock-container #clock-'+index+' .resetButton').click(function () {
-        $('#clock-container #clock-'+index+' span').html('resetted');
+        $('#clock-container #clock-'+index+' span.status').html('resetted');
         timer.reset();
+        timer.stop();
     });
-    timer.addEventListener('secondsUpdated', function (e) {
-        $('#clock-container #clock-'+index+' .values').html(timer.getTimeValues().toString(['hours', 'minutes', 'seconds']));
+    timer.addEventListener('secondTenthsUpdated', function (e) {
+    // timer.addEventListener('secondsUpdated', function (e) {
+      $('#clock-container #clock-'+index+' .values .hr .title').html(timer.getTimeValues().hours);
+      $('#clock-container #clock-'+index+' .values .min .title').html(timer.getTimeValues().minutes);
+      $('#clock-container #clock-'+index+' .values .sec .title').html(timer.getTimeValues().seconds);
+      $('#clock-container #clock-'+index+' .values .mili .title').html(timer.getTimeValues().secondTenths);
     });
     timer.addEventListener('started', function (e) {
-        $('#clock-container #clock-'+index+' .values').html(timer.getTimeValues().toString(['hours', 'minutes', 'seconds']));
+      $('#clock-container #clock-'+index+' .values .hr .title').html(timer.getTimeValues().hours);
+      $('#clock-container #clock-'+index+' .values .min .title').html(timer.getTimeValues().minutes);
+      $('#clock-container #clock-'+index+' .values .sec .title').html(timer.getTimeValues().seconds);
+      $('#clock-container #clock-'+index+' .values .mili .title').html(timer.getTimeValues().secondTenths);
     });
     timer.addEventListener('reset', function (e) {
-        $('#clock-container #clock-'+index+' .values').html(timer.getTimeValues().toString(['hours', 'minutes', 'seconds']));
+      $('#clock-container #clock-'+index+' .values .hr .title').html(timer.getTimeValues().hours);
+      $('#clock-container #clock-'+index+' .values .min .title').html(timer.getTimeValues().minutes);
+      $('#clock-container #clock-'+index+' .values .sec .title').html(timer.getTimeValues().seconds);
+      $('#clock-container #clock-'+index+' .values .mili .title').html(timer.getTimeValues().secondTenths);
     });
 
     this.Timers[index] = timer;
