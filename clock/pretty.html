@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EMPTY's Multi Stopwatch</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/custom.css">
+  </head>
+  <body>
+    <nav class="bg-white px-8 pt-2 shadow-md">
+      <div class="-mb-px flex justify-center">
+        <a class="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#">
+          EMPTY's Multi Stopwatch
+        </a>
+        <span class="no-underline text-grey-700 border-b-2 border-transparent tracking-wide text-xs py-3" href="#">
+          by <a href="https://github.com/eeemptyy" target="_blank">JOMPOL</a>, <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>, and <a href="https://albert-gonzalez.github.io/easytimer.js/" target="_blank">EasyTimer</a>
+        </span>
+      </div>
+    </nav>
+
+    <h4 class="w-full text-center tracking-wide text-gray-900 font-bold mt-4">ADD CLOCK FORM <span class="text-gray-600 text-xs">(all lowercase character)</span></h4>
+    <div class="add-clock-form flex flex-wrap mb-2 m-4">
+      <div class="md:w-1/5 px-3 mb-6 md:mb-0">
+        <label for="key-map-start" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Key Start
+        </label>
+        <input maxlength="1" id="key-map-start" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="a">
+      </div>
+      <div class="md:w-1/5 px-3 mb-6 md:mb-0">
+        <label for="key-map-pause" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Key Pause
+        </label>
+        <input maxlength="1" id="key-map-pause" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="s">
+      </div>
+      <div class="md:w-1/5 px-3 mb-6 md:mb-0">
+        <label for="key-map-stop" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Key Stop
+        </label>
+        <input maxlength="1" id="key-map-stop" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="d">
+      </div>
+      <div class="md:w-1/5 px-3 mb-6 md:mb-0">
+        <label for="key-map-reset" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Key Reset
+        </label>
+        <input maxlength="1" id="key-map-reset" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="f">
+      </div>
+      <div class="md:w-1/5 px-3 mb-6 md:mb-0">
+        <label for="key-map-reset" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          &nbsp;
+        </label>
+          <button id="add-clock" class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mb-1 mt-1">Add Clock</button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap mb-2 m-4">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <button id="start-all-clock" class="w-full px-2 hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded mb-2">Start All</button>
+      </div>
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <button id="stop-all-clock" class="w-full px-2 hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded mb-2">Stop All</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <div id="clock-container" class="flex flex-wrap mt-2 mx-2">
+    </div>
+
+    <div id="clock-template" style="display: none;">
+      <div id="clock-no" data-id="no" class="clock w-full md:w-1/2 lg:w-1/3 px-2 my-2">
+        <div class="shadow-md bg-white">
+          <div class="flex flex-col p-4">
+            <div class="text-4xl text-center">
+              <span class="hr"><span class="title">00</span></span> :
+              <span class="min"><span class="title">00</span></span> :
+              <span class="sec"><span class="title">00</span></span> :
+              <span class="mili"><span class="title">00</span></span>
+            </div>
+            <div class="text-gray-600 text-center">
+              <button data-id="no" data-key="kkey-start" class="startButton mt-1 md:text-teal-500 md:hover:text-teal-600">Start</button>
+              <button data-id="no" data-key="kkey-pause" class="pauseButton mt-1 md:text-blue-500 md:hover:text-blue-600">Pause</button>
+              <button data-id="no" data-key="kkey-stop" class="stopButton mt-1 md:text-pink-500 md:hover:text-pink-600">Stop</button>
+              <button data-id="no" data-key="kkey-reset" class="resetButton mt-1 md:text-yellow-500 md:hover:text-yellow-600">Reset</button>
+            </div>
+            <span class="text-sm self-end text-gray-800 mt-1">Clock no. | <span class="status text-sm text-gray-600">status show here...</span></span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script src="easytimer/dist/easytimer.min.js"></script>
+
+    <script src="js/clock.js"></script>
+
+  </body>
+</html>
