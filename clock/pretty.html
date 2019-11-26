@@ -6,17 +6,19 @@
     <title>EMPTY's Multi Stopwatch</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   </head>
-  <body>
-    <nav class="bg-white px-8 pt-2 shadow-md">
-      <div class="-mb-px flex justify-center">
-        <a class="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#">
-          EMPTY's Multi Stopwatch
-        </a>
-        <span class="no-underline text-grey-700 border-b-2 border-transparent tracking-wide text-xs py-3" href="#">
-          by <a href="https://github.com/eeemptyy" target="_blank">JOMPOL</a>, <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>, and <a href="https://albert-gonzalez.github.io/easytimer.js/" target="_blank">EasyTimer</a>
-        </span>
-      </div>
-    </nav>
+  <body class="flex flex-col h-full">
+    <header>
+      <nav class="bg-white px-8 pt-2 shadow-md">
+        <div class="-mb-px flex justify-center">
+          <a class="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#">
+            EMPTY's Multi Stopwatch
+          </a>
+          <span class="no-underline text-grey-700 border-b-2 border-transparent tracking-wide text-xs py-3" href="#">
+            by <a href="https://github.com/eeemptyy" target="_blank">JOMPOL</a>, <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>, and <a href="https://albert-gonzalez.github.io/easytimer.js/" target="_blank">EasyTimer</a>
+          </span>
+        </div>
+      </nav>
+    </header>
 
     <h4 class="w-full text-center tracking-wide text-gray-900 font-bold mt-4">ADD CLOCK FORM <span class="text-gray-600 text-xs">(all lowercase character)</span></h4>
     <div class="add-clock-form flex flex-wrap mb-2 m-4">
@@ -88,6 +90,57 @@
         </div>
       </div>
     </div>
+
+    <footer class="w-full text-center mt-4 pin-b">
+      <button id="toggleImportModal" class="px-2 hover:bg-green-600 text-green-600 font-semibold hover:text-white py-2 px-4 border border-green-300 hover:border-transparent rounded mb-2">
+        Import Settings
+      </button>
+      <button id="toggleExportModal" class="px-2 hover:bg-indigo-600 text-indigo-600 font-semibold hover:text-white py-2 px-4 border border-indigo-300 hover:border-transparent rounded mb-2">
+        Export Settings
+      </button>
+    </footer>
+
+    <div id="modelExportContent" class="modal opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
+      <div class="modal-overlay absolute w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
+      <!-- <div class="absolute w-1/2 h-32 bg-white rounded-sm shadow-lg flex items-center justify-center text-2xl"> -->
+      <div class="absolute modal-content bg-white rounded-sm py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Export Settigns! [BETA]</p>
+        </div>
+
+        <!--Body-->
+        <p>Copy text below to export your setting. <span class="text-xs">every character</span></p>
+        <div id="setting-fields" class="max-w-xl bg-gray-100 p-4">
+        </div>
+
+        <!--Footer-->
+        <div class="flex justify-end pt-2">
+          <button class="modal-close-export px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="modelImportContent" class="modal opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
+        <div class="modal-overlay absolute w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
+        <!-- <div class="absolute w-1/2 h-32 bg-white rounded-sm shadow-lg flex items-center justify-center text-2xl"> -->
+        <div class="absolute modal-content bg-white rounded-sm py-4 text-left px-6">
+          <div class="flex justify-between items-center pb-3">
+            <p class="text-2xl font-bold">Import Settigns! [BETA]</p>
+          </div>
+  
+          <!--Body-->
+          <p>Patse your setting from export button below to load.</p>
+          <div class="max-w-xl bg-gray-100 p-4">
+              <textarea id="settings-data" class="w-full resize-none border rounded focus:outline-none focus:shadow-outline"></textarea>
+          </div>
+  
+          <!--Footer-->
+          <div class="flex justify-end pt-2">
+            <button id="import-settings" class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Import</button>
+            <button class="modal-close-import px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+          </div>
+        </div>
+      </div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"

@@ -10,8 +10,53 @@ var app = {
   },
 
   binds: function() {
+    this.bindModal();
+    this.bindClock();
+  },
+
+  bindModal: function() {
     var that = this;
 
+    $('#toggleExportModal').click(function() {
+      $('#setting-fields').html(JSON.stringify(that.keyMap))
+      const modal = document.querySelector('#modelExportContent')
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+    });
+
+    $('#toggleImportModal').click(function() {
+      const modal = document.querySelector('#modelImportContent')
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+    });
+
+    $('.modal-close-export').click(function() {
+      const modal = document.querySelector('#modelExportContent')
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+    });
+
+    $('.modal-close-import').click(function() {
+      const modal = document.querySelector('#modelImportContent')
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+    });
+
+    $('#import-settings').click(function() {
+      settings = $('#settings-data').val();
+      console.log(settings)
+      if (settings == '') {
+        console.log('gg');
+        alert("Can't import empty values.");
+        return false;
+      }
+      console.log('xd')
+      that.createFromSettings(JSON.parse(settings));
+    });
+  },
+
+  bindClock: function() {
+    var that = this;
     $('#start-all-clock').click(function() {
       for(let tt=0; tt<that.Timers.length; tt++){
         let timer = that.Timers[tt];
@@ -55,18 +100,6 @@ var app = {
       $('#key-map-stop').val('');
       $('#key-map-reset').val('');
 
-      let loadTemplate = that.template;
-
-      loadTemplate = loadTemplate.replace(/no/g, that.count);
-      loadTemplate = loadTemplate.replace(/Start/g, 'Start'+' ('+keyStart.toLowerCase()+')');
-      loadTemplate = loadTemplate.replace(/Pause/g, 'Pause'+' ('+keyPause.toLowerCase()+')');
-      loadTemplate = loadTemplate.replace(/Stop/g, 'Stop'+' ('+keyStop.toLowerCase()+')');
-      loadTemplate = loadTemplate.replace(/Reset/g, 'Reset'+' ('+keyReset.toLowerCase()+')');
-      loadTemplate = loadTemplate.replace(/kkey-start/g, keyStart);
-      loadTemplate = loadTemplate.replace(/kkey-pause/g, keyPause);
-      loadTemplate = loadTemplate.replace(/kkey-stop/g, keyStop);
-      loadTemplate = loadTemplate.replace(/kkey-reset/g, keyReset);
-
       obb = {
         'startButton': keyStart,
         'pauseButton': keyPause,
@@ -74,18 +107,40 @@ var app = {
         'resetButton': keyReset
       };
 
-      that.container.append(loadTemplate);
-      that.keyMap[that.count] = obb;
-
-      that.createTimer();
-      that.count++;
+      that.buildClock(obb);
     });
+  },
+
+  buildClock: function(keys) {
+    let loadTemplate = this.template;
+
+    loadTemplate = loadTemplate.replace(/no/g, this.count);
+    loadTemplate = loadTemplate.replace(/Start/g, 'Start'+' ('+ keys.startButton.toLowerCase()+')');
+    loadTemplate = loadTemplate.replace(/Pause/g, 'Pause'+' ('+ keys.pauseButton.toLowerCase()+')');
+    loadTemplate = loadTemplate.replace(/Stop/g, 'Stop'+' ('+ keys.stopButton.toLowerCase()+')');
+    loadTemplate = loadTemplate.replace(/Reset/g, 'Reset'+' ('+ keys.resetButton.toLowerCase()+')');
+    loadTemplate = loadTemplate.replace(/kkey-start/g, keys.startButton);
+    loadTemplate = loadTemplate.replace(/kkey-pause/g, keys.pauseButton);
+    loadTemplate = loadTemplate.replace(/kkey-stop/g, keys.stopButton);
+    loadTemplate = loadTemplate.replace(/kkey-reset/g, keys.resetButton);
+
+    this.container.append(loadTemplate);
+    this.keyMap[this.count] = keys;
+
+    this.createTimer();
+    this.count++;
+  },
+
+  createFromSettings: function(settingDatas) {
+    for (i=0; i<settingDatas.length; i++) {
+      this.buildClock(settingDatas[i]);
+    }
+    $('.modal-close-import').click();
   },
 
   createTimer: function() {
     let index = this.count;
     let timer = new Timer();
-
 
     $('#clock-container #clock-'+index+' .startButton').click(function (e) {
         $('#clock-container #clock-'+index+' span.status').html('started');
@@ -136,8 +191,6 @@ var app = {
   rebindable: function() {
     var that = this;
     $(document).keydown(function(e) {
-      console.log(e.keyCode);
-      console.log(String.fromCharCode(e.keyCode));
       for (let ii=0; ii<that.keyMap.length; ii++) {
         startKey = that.keyMap[ii]['startButton'];
         pauseKey = that.keyMap[ii]['pauseButton'];
@@ -145,7 +198,6 @@ var app = {
         resetKey = that.keyMap[ii]['resetButton'];
 
         if (e.keyCode == startKey.charCodeAt(0)) {
-          console.log('keystart');
           $('#clock-container #clock-'+ii+' .startButton').click();
         } else if (e.keyCode == pauseKey.charCodeAt(0)) {
           $('#clock-container #clock-'+ii+' .pauseButton').click();
@@ -160,12 +212,9 @@ var app = {
   },
 
   reBindEvent: function() {
-    console.log('rebind');
     $(document).unbind('keydown');
-
     this.rebindable();
   }
-
 };
 
 app.init();
