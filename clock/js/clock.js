@@ -17,7 +17,6 @@ var app = {
         let timer = that.Timers[tt];
         timer.start({precision: 'secondTenths'});
         $('#clock-container #clock-'+tt+' span.status').html('Started by "Start All"');
-        $('#clock-container #clock-'+tt+' p.status').html('Started by "Start All"');
       }
     });
 
@@ -26,7 +25,6 @@ var app = {
         let timer = that.Timers[tt];
         timer.stop();
         $('#clock-container #clock-'+tt+' span.status').html('Stopped by "Stop All"');
-        $('#clock-container #clock-'+tt+' p.status').html('Started by "Start All"');
       }
     });
 
@@ -91,7 +89,6 @@ var app = {
 
     $('#clock-container #clock-'+index+' .startButton').click(function (e) {
         $('#clock-container #clock-'+index+' span.status').html('started');
-        $('#clock-container #clock-'+index+' p.status').html('started');
         // console.log(index);
         // console.log('-----');
         // console.log(e.keyCode);
@@ -100,17 +97,14 @@ var app = {
     });
     $('#clock-container #clock-'+index+' .pauseButton').click(function () {
         $('#clock-container #clock-'+index+' span.status').html('paused');
-        $('#clock-container #clock-'+index+' p.status').html('paused');
         timer.pause();
     });
     $('#clock-container #clock-'+index+' .stopButton').click(function () {
         $('#clock-container #clock-'+index+' span.status').html('stopped');
-        $('#clock-container #clock-'+index+' p.status').html('stopped');
         timer.stop();
     });
     $('#clock-container #clock-'+index+' .resetButton').click(function () {
         $('#clock-container #clock-'+index+' span.status').html('resetted');
-        $('#clock-container #clock-'+index+' p.status').html('resetted');
         timer.reset();
         timer.stop();
     });
@@ -137,7 +131,6 @@ var app = {
     this.Timers[index] = timer;
 
     this.reBindEvent();
-
   },
 
   rebindable: function() {
