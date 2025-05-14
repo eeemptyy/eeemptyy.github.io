@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="root" dir="auto"></div>
+
+  <script type="text/babel">
+    // Custom Button Component
+    const CustomButton = ({ onClick, children, color = "#4CAF50" }) => {
+      const buttonStyle = {
+        backgroundColor: color,
+      };
+
+      return (
+        <button
+          className="custom-button"
+          onClick={onClick}
+          style={buttonStyle}
+        >
+          {children}
+        </button>
+      );
+    };
+
+    // Number Input Component
+    const NumberInput = ({ value, onChange, label, min = 0, max = 100 }) => {
+      const decrease = () => {
+        if (value > min) {
+          onChange(value - 1);
+        }
+      };
+
+      const increase = () => {
+        if (value < max) {
+          onChange(value + 1);
+        }
+      };
+
+      return (
+        <div className="number-input-container">
+          <div className="number-input-label">{label}</div>
+          <div className="number-input-controls">
+            <div className="number-input-button" onClick={decrease}>-</div>
+            <input
+              type="text"
+              className="number-input-value"
+              value={value}
+              readOnly
+            />
+            <div className="number-input-button" onClick={increase}>+</div>
+          </div>
+        </div>
+      );
+    };
+
+    const ToggleButton = ({
+      isOn,
+      labelOff,
+      labelOn,
+      onToggle,
+    }) => (
+      <div className="toggle-container">
+        <span className="toggle-option" style={{ color: isOn ? '#4CAF50' : '#999' }}>{labelOff}</span>
+        <label className="switch">
+          <input type="checkbox" checked={!isOn} onChange={onToggle} />
+          <span className="slider"></span>
+        </label>
+        <span className="toggle-option" style={{ color: !isOn ? '#2196F3' : '#999' }}>{labelOn}</span>
+      </div>
+    )
+
+    // Modal Component
+    const Modal = ({ isOpen, onClose, title, children }) => {
+      if (!isOpen) return null;
+
+      return (
+        <div className="modal-backdrop" onClick={onClose}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{title}</h3>
+              <button className="modal-close" onClick={onClose}>×</button>
+            </div>
+            {children}
+          </div>
+        </div>
+      );
+    };
+
+    const ItemModal = ({
+      isOpen,
+      isEditMode,
+      itemName,
+      setItemName,
+      itemPrice,
+      setItemPrice,
+      onClose,
+      onSubmit,
+    }) => (
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title={isEditMode ? "Edit Item" : "Add Item"}
+      >
+        <div>
+          <label htmlFor="itemName">Name:</label>
+          <input
+            type="text"
+            id="itemName"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
+          />
+
+          <label htmlFor="itemPrice">Price:</label>
+          <input
+            type="number"
+            id="itemPrice"
+            value={itemPrice}
+            onChange={(e) => setItemPrice(e.target.value)}
+            style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
+          />
+
+          <div className="modal-footer">
+            <CustomButton
+              color="#2196F3"
+              onClick={onSubmit}
+            >
+              {
+                isEditMode ? "Save Changes" : "Add Item"
+              }
+            </CustomButton>
+          </div>
+        </div>
+      </Modal>
+    )
+
+    const PersonModal = ({
+      isOpen,
+      isEditMode,
+      personName,
+      setPersonName,
+      items,
+      itemQuantities,
+      handleQuantityChange,
+      onClose,
+      onSubmit,
+    }) => (
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title={isEditMode ? "Edit Person Add 2" : "Add Person 2"}
+      >
+        <div>
+          <label htmlFor="personName">Name:</label>
+          <input
+            type="text"
+            id="personName"
+            value={personName}
+            onChange={(e) => setPersonName(e.target.value)}
+            style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
+          />
+
+          <div>
+            <p>Select shares for each item:</p>
+            <div className="items-container">
+              {items.map(item => (
+                <NumberInput
+                  key={item.id}
+                  label={`${item.name} (${item.price.toFixed(2)})`}
+                  value={itemQuantities[item.id] || 0}
+                  onChange={(quantity) => handleQuantityChange(item.id, quantity)}
+                  min={0}
+                  max={10}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="modal-footer">
+            <CustomButton
+              color="#2196F3"
+              onClick={onSubmit}
+            >
+              {
+                isEditMode ? "Save Changes" : "Add Person"
+              }
+            </CustomButton>
+          </div>
+        </div>
+      </Modal>
+    )
+
+    function App() {
+      // View mode
+      const [showItems, setShowItems] = useState(true);
+
+      // Item
+      const [items, setItems] = useState([]);
+      const [itemName, setItemName] = useState(null);
+      const [itemPrice, setItemPrice] = useState(null);
+      const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+
+      // Person
+      const [people, setPeople] = useState([]);
+      const [isPersonModalOpen, setIsPersonModalOpen] = useState(false);
+      const [personName, setPersonName] = useState("");
+      const [itemQuantities, setItemQuantities] = useState({});
+
+      // Edit Mode
+      const [isEditMode, setIsEditMode] = useState(false);
+      const [editingPersonId, setEditingPersonId] = useState(undefined);
+      const [editingItemId, setEditingItemId] = useState(undefined);
+
+      // Load items from localStorage on initial render
+      useEffect(() => {
+        const savedItems = localStorage.getItem('eeemptyy.app.expense.items');
+        if (savedItems) {
+          setItems(JSON.parse(savedItems));
+        }
+        const savedPeople = localStorage.getItem('eeemptyy.app.expense.people');
+        if (savedPeople) {
+          setPeople(JSON.parse(savedPeople));
+        }
+        const viewmode = localStorage.getItem('eeemptyy.app.expense.viewmode');
+        if (viewmode) {
+          setShowItems(viewmode === 'items');
+        }
+      }, []);
+
+      // Save items to localStorage whenever items change
+      useEffect(() => {
+        localStorage.setItem('eeemptyy.app.expense.items', JSON.stringify(items));
+      }, [items]);
+
+      // Save people to localStorage whenever items change
+      useEffect(() => {
+        localStorage.setItem('eeemptyy.app.expense.people', JSON.stringify(people));
+      }, [people]);
+
+      // Save view mode to localStorage whenever items change
+      useEffect(() => {
+        localStorage.setItem('eeemptyy.app.expense.viewmode', showItems ? 'items' : 'people');
+      }, [showItems]);
+
+      const openItemModal = (itemId) => {
+        // Has itemId then it is edit mode
+        if (itemId) {
+          const item = items.find(p => p.id === itemId);
+
+          setEditingItemId(itemId);
+          setItemName(item.name);
+          setItemPrice(item.price);
+
+          setIsEditMode(true);
+        } else {
+          setItemName(null);
+          setItemPrice(null);
+        }
+
+        setIsItemModalOpen(true);
+      };
+
+      const handleEditItem = (itemId) => {
+        if (!itemName || !itemPrice) return;
+
+        // Validate price is a number
+        const price = parseFloat(itemPrice);
+        if (isNaN(price)) {
+          alert("Please enter a valid price number");
+          return;
+        }
+
+        const item = items.find(p => p.id === itemId);
+        if (!item) return;
+
+        const updatedItem = {
+          ...item,
+          name: itemName,
+          price: price
+        }
+
+        setItems((prevItems) => {
+          let ind = prevItems.findIndex(item => item.id == itemId);
+          const newItems = [...prevItems];
+          newItems[ind] = updatedItem;
+          return newItems;
+        });
+
+        setIsEditMode(false);
+        setIsItemModalOpen(false);
+      }
+
+      const handleAddItem = () => {
+        if (!itemName || !itemPrice) return;
+
+        // Validate price is a number
+        const price = parseFloat(itemPrice);
+        if (isNaN(price)) {
+          alert("Please enter a valid price number");
+          return;
+        }
+
+        setItems([...items, {
+          id: Date.now(),
+          name: itemName,
+          price: price
+        }]);
+
+        setIsItemModalOpen(false);
+      };
+
+      const handleRemoveItem = (itemId) => {
+        if (window.confirm("Are you sure you want to remove this item?")) {
+          setItems(items.filter(item => item.id !== itemId));
+        }
+      }
+
+      const openAddPersonModal = () => {
+        if (items.length === 0) {
+          alert("Please add some items first before adding people.");
+          return;
+        }
+
+        setPersonName("");
+
+        // Initialize all item quantities to 0
+        const initialQuantities = {};
+        items.forEach(item => {
+          initialQuantities[item.id] = 0;
+        });
+        setItemQuantities(initialQuantities);
+
+        setIsPersonModalOpen(true);
+      };
+
+      const openEditPersonModal = (personId, people) => {
+        const person = people.find(p => p.id === personId);
+        if (!person) return;
+
+        setEditingPersonId(personId);
+        setPersonName(person.name);
+        setItemQuantities(person.itemShares);
+
+        setIsEditMode(true);
+        setIsPersonModalOpen(true);
+      };
+
+      const handleEditPerson = (personId, people) => {
+        if (!personName.trim()) {
+          alert("Please enter a name");
+          return;
+        }
+
+        const person = people.find(p => p.id === personId);
+        if (!person) return;
+
+        // Get items with quantity > 0
+        const selectedItemIds = Object.keys(itemQuantities).filter(
+          id => itemQuantities[id] > 0
+        );
+
+        if (selectedItemIds.length === 0) {
+          alert("Please select at least one item");
+          return;
+        }
+
+        // Create a map of item IDs to quantities
+        const itemShares = {};
+        selectedItemIds.forEach(id => {
+          itemShares[id] = itemQuantities[id];
+        });
+
+        const updatedPerson = {
+          ...person,
+          name: personName,
+          itemIds: selectedItemIds,
+          itemShares: itemShares,
+        };
+
+        setPeople((prevPeople) => {
+          let ind = people.findIndex(person => person.id == personId);
+          const newPeople = [...prevPeople];
+          newPeople[ind] = updatedPerson;
+          return newPeople;
+        });
+
+        setIsEditMode(false);
+        setIsPersonModalOpen(false);
+      }
+
+      const handleAddPerson = () => {
+        if (!personName.trim()) {
+          alert("Please enter a name");
+          return;
+        }
+
+        // Get items with quantity > 0
+        const selectedItemIds = Object.keys(itemQuantities).filter(
+          id => itemQuantities[id] > 0
+        );
+
+        if (selectedItemIds.length === 0) {
+          alert("Please select at least one item");
+          return;
+        }
+
+        // Create a map of item IDs to quantities
+        const itemShares = {};
+        selectedItemIds.forEach(id => {
+          itemShares[id] = itemQuantities[id];
+        });
+
+        setPeople([...people, {
+          id: Date.now(),
+          name: personName,
+          itemIds: selectedItemIds,
+          itemShares: itemShares
+        }]);
+
+        setIsPersonModalOpen(false);
+      };
+
+      const handleRemovePerson = (personId) => {
+        if (window.confirm("Are you sure you want to remove this person?")) {
+          setPeople(people.filter(person => person.id !== personId));
+        }
+      }
+
+      const handleQuantityChange = (itemId, quantity) => {
+        setItemQuantities({
+          ...itemQuantities,
+          [itemId]: quantity
+        });
+      };
+
+      const getItemsForPerson = (person) => {
+        return items.filter(item => person.itemIds.includes(item.id.toString()));
+      };
+
+      // Get total shares for an item across all people
+      const getTotalSharesForItem = (itemId) => {
+        return people.reduce((total, person) => {
+          return total + (person.itemShares?.[itemId] || 0);
+        }, 0);
+      };
+
+      // Calculate the share of an item's price for a person based on their quantity
+      const getItemShareForPerson = (person, item) => {
+        const totalShares = getTotalSharesForItem(item.id);
+        if (totalShares === 0) return 0;
+
+        const personShares = person.itemShares?.[item.id] || 0;
+        return (personShares / totalShares) * item.price;
+      };
+
+      // Calculate the total amount a person needs to pay
+      const getTotalForPerson = (person) => {
+        const personItems = getItemsForPerson(person);
+        return personItems.reduce((total, item) => {
+          const share = getItemShareForPerson(person, item);
+          return total + share;
+        }, 0);
+      };
+
+      return (
+        <div className="app-container">
+          <h1>Expense Tracker</h1>
+
+          <div className="button-container">
+            <CustomButton onClick={() => { openItemModal(0); }} color="#4CAF50">Add Item</CustomButton>
+            <CustomButton onClick={openAddPersonModal} color="#2196F3">Add Person</CustomButton>
+          </div>
+
+          <ToggleButton
+            isOn={showItems}
+            labelOff={"Items"}
+            labelOn={"People"}
+            onToggle={() => setShowItems(!showItems)}
+          />
+
+          {showItems ? (
+            <div>
+              <h2>Items</h2>
+              {items.length === 0 ? (
+                <div className="empty-state">No items added yet. Click "Add Item" to get started.</div>
+              ) : (
+                <div className="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                        <th>Paid By</th>
+                        <th>Share Distribution</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {items.map(item => {
+                        const totalShares = getTotalSharesForItem(item.id);
+
+                        return (
+                          <tr
+                            key={item.id}
+                            onClick={() => {
+                              openItemModal(item.id);
+                            }}
+                          >
+                            <td>{item.name}</td>
+                            <td>{item.price.toFixed(2)} thb</td>
+                            <td>
+                              {people
+                                .filter(person => person.itemIds.includes(item.id.toString()))
+                                .map(person => (
+                                  <span key={person.id} className="tag">
+                                    {person.name} ({person.itemShares?.[item.id] || 0} shares)
+                                  </span>
+                                ))}
+                              {totalShares === 0 && <span className="tag" style={{ backgroundColor: "#ffcccc" }}>Unpaid</span>}
+                            </td>
+                            <td>
+                              {totalShares > 0 ? (
+                                people
+                                  .filter(person => person.itemIds.includes(item.id.toString()))
+                                  .map(person => {
+                                    const share = getItemShareForPerson(person, item);
+                                    return (
+                                      <div key={person.id}>
+                                        {person.name}: {share.toFixed(2)} thb
+                                      </div>
+                                    );
+                                  })
+                              ) : (
+                                "N/A"
+                              )}
+                            </td>
+
+                            <td>
+                              <div className="number-input-button" onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemoveItem(item.id);
+                              }}>X</div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div>
+              <h2>People</h2>
+              {people.length === 0 ? (
+                <div className="empty-state">No people added yet. Click "Add Person" to get started.</div>
+              ) : (
+                <div className="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Items (Individual Share)</th>
+                        <th>Total</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {people.map(person => (
+                        <tr
+                          key={person.id}
+                          onClick={() => {
+                            openEditPersonModal(person.id, people);
+                          }}
+                        >
+                          <td>{person.name}</td>
+                          <td>
+                            {getItemsForPerson(person).map(item => {
+                              const share = getItemShareForPerson(person, item);
+                              return (
+                                <span key={item.id} className="tag">
+                                  {item.name} ({share.toFixed(2)} thb)
+                                </span>
+                              );
+                            })}
+                          </td>
+                          <td>{getTotalForPerson(person).toFixed(2)} thb</td>
+                          <td>
+                            <div className="number-input-button" onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemovePerson(person.id);
+                            }}>X</div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          )}
+
+          <ItemModal
+            isOpen={isItemModalOpen}
+            isEditMode={isEditMode}
+            itemName={itemName}
+            setItemName={setItemName}
+            itemPrice={itemPrice}
+            setItemPrice={setItemPrice}
+            onClose={() => {
+              setIsItemModalOpen(false);
+              setIsEditMode(false);
+            }}
+            onSubmit={() => {
+              return isEditMode ? handleEditItem(editingItemId) : handleAddItem();
+            }}
+          />
+
+          <PersonModal
+            isOpen={isPersonModalOpen}
+            isEditMode={isEditMode}
+            personName={personName}
+            setPersonName={setPersonName}
+            items={items}
+            itemQuantities={itemQuantities}
+            handleQuantityChange={handleQuantityChange}
+            onClose={() => {
+              setIsPersonModalOpen(false);
+              setIsEditMode(false);
+            }}
+            onSubmit={() => {
+              return isEditMode ? handleEditPerson(editingPersonId, people) : handleAddPerson();
+            }}
+          />
+
+        </div>
+      );
+    }
+
+    // Need to include React hooks
+    const { useState, useEffect } = React;
+
+    // Updated to React 18 rendering method
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+
+  <!-- Updated to React 18 CDN links -->
+  <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/dataformsjs@4.0.1/js/react/jsxLoader.min.js"></script>
+</body>
+
+</html>
